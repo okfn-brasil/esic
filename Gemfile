@@ -11,4 +11,5 @@ group :development do
   gem "vcr"
   gem "webmock", "~> 1.13.0"
   gem "pry"
+  gem "rake"
 end
