@@ -1,6 +1,6 @@
 require 'helper'
 
-class TestConsole < Test::Unit::TestCase
+class TestCrawler < Test::Unit::TestCase
   should 'login successfully when called with valid credentials' do
     VCR.use_cassette('console_login_successful') do
       assert_nothing_raised ESIC::LoginFailedException do
