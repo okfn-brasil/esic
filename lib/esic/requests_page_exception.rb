@@ -1,0 +1,2 @@
+class RequestsPageException < Exception
+end

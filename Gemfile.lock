@@ -109,6 +109,7 @@ DEPENDENCIES
   rake
   rdoc (~> 3.12)
   shoulda
+  shoulda-context
   trollop
   vcr
   webmock (~> 1.13.0)
