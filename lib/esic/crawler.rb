@@ -52,9 +52,10 @@ module ESIC
       rows.shift # Ignore header
 
       rows.each do |row|
-        url = row.at('a').attributes['href'].value
+        request_details_url = row.at('a').attributes['href'].value
         details = row.search('span').map(&:text).map(&:strip)
-        results << [url] + details
+        protocol, entity, _, created_at, expired_at, state = *details
+        results << Request.new(request_details_url, protocol, entity, created_at, expired_at, state)
       end
 
       results
