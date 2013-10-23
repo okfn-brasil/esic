@@ -1,2 +1,4 @@
-class RequestsPageException < Exception
+module ESIC
+  class RequestsPageException < Exception
+  end
 end

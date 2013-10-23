@@ -18,6 +18,16 @@ class TestCrawler < Test::Unit::TestCase
         assert requests.length == 3, 'Should receive 3 requests back'
       end
     end
+
+    context 'public bodies' do
+      should 'list' do
+        crawler = ESIC::Crawler.new('vitorbaptista', 'correct-password')
+        requests = crawler.public_bodies
+        ministerio_da_saude = requests.find { |body| body.id == 304 }
+        assert ministerio_da_saude, 'Ministério da Saúde should exist'
+        assert requests.length == 117, "Should have 117 public bodies #{requests.length}"
+      end
+    end
   end
 
   should 'fails login when called with invalid credentials' do
