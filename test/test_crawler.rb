@@ -7,21 +7,21 @@ class TestCrawler < Test::Unit::TestCase
 
     should 'login successfully' do
       assert_nothing_raised ESIC::LoginFailedException do
-        ESIC::Crawler.new('vitorbaptista', 'correct-password')
+        ESIC::Crawler.new(USERNAME, PASSWORD)
       end
     end
 
     context 'requests' do
       should 'list' do
-        crawler = ESIC::Crawler.new('vitorbaptista', 'correct-password')
+        crawler = ESIC::Crawler.new(USERNAME, PASSWORD)
         requests = crawler.requests
-        assert requests.length == 3, 'Should receive 3 requests back'
+        assert requests.length == 4, "Should have 4 requests #{requests.length}"
       end
     end
 
     context 'public bodies' do
       should 'list' do
-        crawler = ESIC::Crawler.new('vitorbaptista', 'correct-password')
+        crawler = ESIC::Crawler.new(USERNAME, PASSWORD)
         requests = crawler.public_bodies
         ministerio_da_saude = requests.find { |body| body.id == 304 }
         assert ministerio_da_saude, 'Ministério da Saúde should exist'
@@ -33,7 +33,7 @@ class TestCrawler < Test::Unit::TestCase
   should 'fails login when called with invalid credentials' do
     VCR.use_cassette('console_invalid_credentials') do
       assert_raise ESIC::LoginFailedException do
-        ESIC::Crawler.new('vitorbaptista', 'wrong-password')
+        ESIC::Crawler.new(USERNAME, 'wrong-password')
       end
     end
   end
