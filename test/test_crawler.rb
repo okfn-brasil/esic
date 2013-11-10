@@ -22,14 +22,14 @@ class TestCrawler < Test::Unit::TestCase
     end
 
     context 'request' do
-      should 'list' do
+      should 'get the request\'s and response\'s text' do
         crawler = ESIC::Crawler.new(USERNAME, PASSWORD)
         request = crawler.request('08850001191201270')
         assert request.text =~ /violência contra a mulher/, request.text
         assert request.response_text =~ /Prezado Cidadão/, request.response_text
       end
 
-      should 'work' do
+      should 'work even if the public body haven\'t answered yet' do
         crawler = ESIC::Crawler.new(USERNAME, PASSWORD)
         request = crawler.request('00075001505201341')
         assert request.response_text.nil?, 'Response text should be nil'
