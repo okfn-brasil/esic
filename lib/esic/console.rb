@@ -10,8 +10,16 @@ module ESIC
         opt :password, 'Your password', type: String, required: true
         stop_on SUB_COMMANDS
       end
-      puts opts.inspect
-      puts ARGV.shift
+
+      command = ARGV.shift
+      Trollop::die "unknown command #{command}" unless SUB_COMMANDS.include? command
+
+      crawler = ESIC::Crawler.new(opts[:username], opts[:password])
+
+      case command
+      when 'requests'
+        puts crawler.requests.inspect
+      end
     end
   end
 end
