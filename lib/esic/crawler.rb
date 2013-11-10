@@ -25,6 +25,22 @@ module ESIC
       parse_requests_page(requests_page)
     end
 
+    def request(protocol)
+      form = agent.get(REQUEST_LIST_URL).form
+      form.radiobuttons[0].check
+      form.add_button_to_query form.button
+      form.field_with(id: 'ConteudoGeral_ConteudoFormComAjax_txtProtocolo').value = protocol
+      requests_page = agent.submit form
+      request = parse_requests_page(requests_page).find { |r| r.protocol == protocol }
+      if request
+        request_details_page = agent.get(request.request_details_url)
+        request.text = request_details_page.at('#ConteudoGeral_ConteudoFormComAjax_tabGeral_tabDadosPedido_txtDescricaoSolicitacao').text.strip
+        response = request_details_page.at('#ConteudoGeral_ConteudoFormComAjax_tabGeral_tabDadosResposta_txtResposta')
+        request.response_text = response.text.strip if response
+      end
+      request
+    end
+
     def public_bodies
       result = agent.post(PUBLIC_BODY_LIST_URL,
                           '{ idOrgaoSuperiorLimitado: 0, nomeOrgao: \'\', isBloqueados: true }',

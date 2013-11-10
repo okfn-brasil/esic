@@ -21,6 +21,21 @@ class TestCrawler < Test::Unit::TestCase
       end
     end
 
+    context 'request' do
+      should 'list' do
+        crawler = ESIC::Crawler.new(USERNAME, PASSWORD)
+        request = crawler.request('08850001191201270')
+        assert request.text =~ /violência contra a mulher/, request.text
+        assert request.response_text =~ /Prezado Cidadão/, request.response_text
+      end
+
+      should 'work' do
+        crawler = ESIC::Crawler.new(USERNAME, PASSWORD)
+        request = crawler.request('00075001505201341')
+        assert request.response_text.nil?, 'Response text should be nil'
+      end
+    end
+
     context 'public bodies' do
       should 'list' do
         crawler = ESIC::Crawler.new(USERNAME, PASSWORD)

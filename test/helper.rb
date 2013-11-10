@@ -11,8 +11,8 @@ require 'test/unit'
 require 'shoulda'
 require 'vcr'
 
-USERNAME = ENV['ESIC_USERNAME']
-PASSWORD = ENV['ESIC_PASSWORD']
+USERNAME = ENV['ESIC_USERNAME'] || 'vitorbaptista'
+PASSWORD = ENV['ESIC_PASSWORD'] || '1234567890'
 
 VCR.configure do |c|
   c.cassette_library_dir = 'test/vcr_cassettes'
