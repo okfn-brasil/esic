@@ -2,7 +2,7 @@ require 'trollop'
 
 module ESIC
   class Console
-    SUB_COMMANDS = %w(requests)
+    SUB_COMMANDS = %w(requests public_bodies)
 
     def self.run!
       opts = Trollop::options do
@@ -19,6 +19,8 @@ module ESIC
       case command
       when 'requests'
         puts crawler.requests.inspect
+      when 'public_bodies'
+        puts crawler.public_bodies.inspect
       end
     end
   end
